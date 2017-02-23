@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+<xs:element name="listapasajes" type="tipoListapasejes"/>
+
+	<xs:complexType name="tipoListapasejes">
+		<xs:complexContent>
+			<xs:restriction base="xs:anyType">
+				<xs:sequence>
+					<xs:element name="pasaje" type="tipoPasaje" minOccurs="1" maxOccurs="unbounded"/>
+				</xs:sequence>
+				<xs:attribute name="fecha" type="xs:date"/>
+				<xs:attribute name="compania" type="tipoCompania"/>
+			</xs:restriction>
+		</xs:complexContent>
+	</xs:complexType>
+	
+	<xs:simpleType name="tipoCompania">
+		<xs:restriction base="xs:string">
+			<xs:pattern value="[a-zA-Z0-9]{3,20}"/>
+		</xs:restriction>
+	</xs:simpleType>
+	
+	<xs:complexType name="tipoPasaje">
+		<xs:complexContent>
+			<xs:restriction base="xs:anyType">
+				<xs:sequence>
+					<xs:element name="vuelo" type="tipoVuelo" minOccurs="1" maxOccurs="unbounded"/>
+					<xs:element name="pasajero" type="tipoPasajero" minOccurs="1" maxOccurs="1"/>
+					<xs:element name="equipaje" type="tipoEquipaje" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
+				<xs:attribute name="localizador" type="tipoLocalizador"/>
+			</xs:restriction>
+		</xs:complexContent>
+	</xs:complexType>
+	
+	<xs:simpleType name="tipoLocalizador">
+		<xs:restriction base="xs:string">
+			<xs:pattern value="[a-zA-Z0-9]{8}"/>
+		</xs:restriction>
+	</xs:simpleType>
+	
+	<xs:complexType name="tipoVuelo">
+		<xs:complexContent>
+			<xs:restriction base="xs:anyType">
+				<xs:sequence>
+					<xs:element name="codigo" type="tipoCodigo"/>
+					<xs:element name="aeropuertoSalida" type="tipoAeropuertosalida"/>
+					<xs:element name="fechayHoraSalida" type="xs:dateTime"/>
+					<xs:element name="aeropuertoLlegada" type="tipoAeropuertollegada"/>
+					<xs:element name="fechayHoraLlegada" type="xs:dateTime"/>
+				</xs:sequence>
+			</xs:restriction>
+		</xs:complexContent>
+	</xs:complexType>
+	
+	<xs:simpleType name="tipoCodigo">
+		<xs:restriction base="xs:string">
+			<xs:pattern value="[A-Z]{2,3}[0-9]{4}"/>
+		</xs:restriction>
+	</xs:simpleType>
+	
+	<xs:simpleType name="tipoAeropuertosalida">
+		<xs:restriction base="xs:string">
+			<xs:pattern value="[A-Z]{3}"/>
+		</xs:restriction>
+	</xs:simpleType>
+	
+	<xs:simpleType name="tipoAeropuertollegada">
+		<xs:restriction base="xs:string">
+			<xs:pattern value="[A-Z]{3}"/>
+		</xs:restriction>
+	</xs:simpleType>
+	
+	<xs:complexType name="tipoPasajero">
+		<xs:complexContent>
+			<xs:restriction base="xs:anyType">
+				<xs:sequence>
+					<xs:element name="nombre" type="tipoNombre"/>
+					<xs:element name="apellidos" type="xs:string"/>
+					<xs:element name="nacionalidad" type="tipoNacionalidad"/>
+					<xs:element name="rangoEdad" type="tipoRango_edad"/>
+				</xs:sequence>
+			</xs:restriction>
+		</xs:complexContent>
+	</xs:complexType>
+	
+	<xs:simpleType name="tipoNombre">
+		<xs:restriction base="xs:string">
+			<xs:pattern value="[a-zA-Z]{3,15}"/>
+		</xs:restriction>
+	</xs:simpleType>
+	
+	<xs:simpleType name="tipoNacionalidad">
+		<xs:restriction base="xs:string">
+			<xs:pattern value="[a-z]{2}"/>
+		</xs:restriction>
+	</xs:simpleType>
+	
+	<xs:simpleType name="tipoRango_edad">
+ 		<xs:restriction base="xs:string">
+ 			<xs:pattern value="baby|junior|adult|senior"/>
+ 		</xs:restriction>
+ 	</xs:simpleType>
+ 	
+ 	<xs:complexType name="tipoEquipaje">
+		<xs:complexContent>
+			<xs:restriction base="xs:anyType">
+				<xs:sequence>
+					<xs:element name="peso_maximo" type="tipoPeso_maximo"/>
+				</xs:sequence>
+				<xs:attribute name="tipo" type="tipoTipo"/>
+				<xs:attribute name="unidad" type="tipoUnidad"/>
+			</xs:restriction>
+		</xs:complexContent>
+	</xs:complexType>
+	
+	<xs:simpleType name="tipoPeso_maximo">
+ 		<xs:restriction base="xs:integer">
+ 			<xs:minInclusive value="15"/>
+ 			<xs:maxInclusive value="40"/>
+ 		</xs:restriction>
+ 	</xs:simpleType>
+ 	
+ 	<xs:simpleType name="tipoTipo">
+		<xs:restriction base="xs:string">
+			<xs:pattern value="normal|especial"/>
+		</xs:restriction>
+	</xs:simpleType>
+	
+	<xs:simpleType name="tipoUnidad">
+		<xs:restriction base="xs:string">
+			<xs:pattern value="kilos|libras"/>
+		</xs:restriction>
+	</xs:simpleType>
+	
+</xs:schema>
